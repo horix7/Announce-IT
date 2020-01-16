@@ -180,13 +180,10 @@ ul{
     margin-right: 2px;
 }
 @media screen and (max-width: 768px){
-    .navbar-right,.wrapper{
+    .wrapper{
        grid-column: 1/-1;
        margin-left: 0px;
        margin-right: 0px;
-    }
-    .navbar-right{
-        width: 100%;
     }
     .wrapper{ 
        margin-top: 50px;
@@ -200,6 +197,7 @@ ul{
     .navbar-left{
         visibility: hidden;
     }
+
     .phone{
         visibility: visible;
         grid-column: 1/-1;
@@ -208,20 +206,24 @@ ul{
     }
     #icon{
         visibility: visible;
-        float: right;
+        margin-right: 0px;
         
+    }
+    ul{
+        width: 100%;
     }
     #logo{
         font-size: 20px;
         float: left;
-        padding-top: 3.5%;
+        /* padding-top: 10%; */
     }
     #icon-list{
         float: right;
-        padding-right: 10%;
+        margin-right: 20%;
+        
     }
     ul>li{
-        padding-right: 15px;
+       
         display: flex;
     }
 }
@@ -236,5 +238,9 @@ ul{
     form{
         margin-bottom: 2%;
     }
+    .navbar-right{
+        margin-left: 0px;
+    }
+
     
 }
