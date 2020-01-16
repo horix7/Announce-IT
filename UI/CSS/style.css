@@ -2,7 +2,7 @@
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 60px 390px 110px;
+    grid-template-rows: 60px 390px 200px;
 }
 .navbar{
     margin-left: -8.5px;
@@ -54,6 +54,7 @@ ul>li{
     margin-top: 100px;
     grid-column: 2 / -2;
     grid-row: 2/-1;
+    height: 70%;
     background-color: white;
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -62,7 +63,7 @@ ul>li{
     border: none;
 }
 .wrapper.login{
-    height: 64%;
+    height: 55%;
 }
 .wrapper-head{
     grid-column: 1/-1;
@@ -141,7 +142,43 @@ form{
 
     margin-bottom: 4%;
 }
+.wrapper.create{
+    margin-top: 12px;
+    background-color: white;
+    height: 90%;
+}
+.wrapper.create>form{
+    grid-column: 1/-1;
+    padding: 4%;
+    height: 60%;
+}
+.wrapper.create>.wrapper-head{
+    margin-bottom: 5%;
+}
 
+textarea::placeholder{
+text-align: left;
+transform: translateY(18px);
+}
+textarea{
+    align-content: center;
+}
+.wrapper.create>form{
+    margin-top: -25px;
+}
+.field-submit{
+    margin-top: 40px;
+}
+.wrapper-body-create>.field-container>.field{
+    height: 50px;
+}
+.container.create>.navbar>.navbar-right{
+    grid-column: 2/-1;
+}
+ul{
+    display: inline-block;
+    margin-right: 2px;
+}
 @media screen and (max-width: 768px){
     .navbar-right,.wrapper{
        grid-column: 1/-1;
