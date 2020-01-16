@@ -179,6 +179,34 @@ ul{
     display: inline-block;
     margin-right: 2px;
 }
+.wrapper-table{
+    margin-top: 5%;
+    width: 100%;
+    grid-column: 1/-1;
+    /* margin-left: 4.5%; */
+}
+.wrapper.admin{
+    grid-column: 1/-1;
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+    margin-top: 6%;
+    /* height: 100%; */
+}
+td>a{
+    color: black;
+}
+table,td,th{
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+th,td{
+    padding:12px;
+    text-align: left;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 @media screen and (max-width: 768px){
     .wrapper{
        grid-column: 1/-1;
@@ -225,6 +253,11 @@ ul{
     ul>li{
        
         display: flex;
+    }
+    .wrapper.admin{
+        margin-left: 3px;
+        width: 100%;
+        /* margin-right: 15%; */
     }
 }
 @media screen and (max-width: 1024px){
