@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container create">
+        <div class="navbar">
+              <div class="navbar-left">
+                <ul>
+                  <li id="logo">AnnounceIT</li>
+                </ul>
+              </div>
+              <div class="navbar-right">
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">All announcements</a></li>
+                </ul>
+                <ul style="float: right;">
+                  <li><a href="#">UGIDivine</a></li>
+                  <li><a href="#">LogOut</a></li>
+                </ul>
+               </div>
+               <div class="phone">
+                <ul>
+                  <li id="logo">AnnounceIT</li>
+                  <li id="icon-list"><a href="#"><i class="fa fa-bars" id="icon"></i></a></li>
+                </ul>
+               </div>
+        </div>
+        <div class="wrapper create status">
+            <div class="wrapper-head">
+                <h2>UPDATE ANNOUNCEMENT</h2>
+               </div> 
+            <form action="./view-all-announcements-page.html">
+                <div class="wrapper-body-create">
+                <div class="field-container">
+                    <input type="text" class="field" required placeholder="Title" value="School Announcement" readonly>
+                    <label class="floating-label">Title</label>
+                  </div>
+                  <div class="field-container">
+                    <textarea class="field" cols="30" required rows="3" placeholder="Summary" readonly>The school is announcing to all parents that they have to pay in this month</textarea>
+                    <label class="floating-label">Summary</label> 
+                  </div>
+                  <div class="field-container">
+                    <input type="text" class="field" required placeholder="Published By" value="dean of student" readonly>
+                    <label class="floating-label">Published By</label> 
+                  </div> 
+                  <div class="field-container">
+                    <input type="text" class="field" required placeholder="Published date" value="12/01/2020" readonly>
+                    <label class="floating-label">Published date</label> 
+                  </div>
+                  <div class="field-container">
+                    <select class="field" required >
+                        <option value="accepted">accepted</option>
+                        <option value="declined">declined</option>
+                        <option value="active">active</option>
+                        <option value="deactive">deactive</option>
+                      </select>
+                  </div>
+                      
+                    <div class="field-submit">
+                      <input type="submit" value="Update">
+                    </div> 
+                </div> 
+            </form>
+        </div>
+    </div>
+</body>
+</html>
