@@ -20,7 +20,7 @@
                 <ul>
                   <li><a href="#">Home</a></li>
                   <li><a href="./create-announcement-page.html">Create</a></li>
-                  <li><a href="#">My announcements</a></li>
+                  <li><a href="./view-my-announcements-page.html">My announcements</a></li>
                   <li><a href="./search-announcements-page.html">Search</a></li>
                 </ul>
                 <ul style="float: right;">
@@ -35,35 +35,36 @@
                 </ul>
                </div>
         </div>
-        <div class="wrapper create">
+        <div class="wrapper search">
             <div class="wrapper-head">
-                <h2>CREATE ANNOUNCEMENT</h2>
+                <h2>SEARCH FOR AN ANNOUNCEMENT</h2>
                </div> 
-            <form action="">
-                <div class="wrapper-body-create">
-                <div class="field-container">
-                    <input type="text" class="field" required placeholder="Title">
-                    <label class="floating-label">Title</label>
-                  </div>
-                  <div class="field-container">
-                    <textarea class="field" cols="30" required rows="3" placeholder="Summary"></textarea>
-                    <label class="floating-label">Summary</label> 
-                  </div>
-                  <div class="field-container">
-                    <input type="text" class="field" required placeholder="Published By">
-                    <label class="floating-label">Published By</label> 
-                  </div> 
-                  <div class="field-container">
-                    <input type="text" class="field" required placeholder="Published date">
-                    <label class="floating-label">Published date</label> 
-                  </div>
-                      
-                    <div class="field-submit">
-                      <input type="submit" value="Create">
-                    </div> 
-                </div> 
-            </form>
+         <div class="search-btn">
+             <input type="text" placeholder="Title" id="srch">
+             <input type="submit" value="Search" onclick="search()">
+         </div>
+         <table class="wrapper-table" id="tbl">
+            <tr>
+                <th>
+                    Announcement-Title
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                     Action
+                </th>
+            </tr>
+            <tr id="tb1">
+                <td>School Announcement</td>
+                <td>accepted</td>
+                <td><a href="./update-announcement.html">Update</a></td>
+            </tr>
+           
+        </table>
+        
         </div>
     </div>
+    <script type="text/javascript" src="../JavaScript/main.js"></script>
 </body>
 </html>
