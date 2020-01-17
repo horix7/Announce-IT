@@ -26,11 +26,14 @@
 #icon{
     visibility: hidden;
 }
-a{
+a,li{
     text-decoration: none;
     color: white; 
 }
-.navbar-right>ul>li:hover{
+/* .profile:hover{
+    background-color: unset;
+} */
+.navbar-right>ul>.hover:hover{
     background-color:rgba(32, 18, 233, 0.315);  
 }
 #logo{
