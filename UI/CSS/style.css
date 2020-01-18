@@ -56,6 +56,7 @@ a,li{
 #link1{
     float: right; 
     padding-right: 10%;
+    padding-top: 2%;
 }
 ul>li{
     display: inline-block;
