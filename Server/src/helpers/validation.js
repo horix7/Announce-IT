@@ -3,9 +3,10 @@ import Joi from 'joi';
 module.exports={
     
     schemas:{ authSchema:Joi.object().keys({
-                            email: Joi.string().required(),
-                            first_name : Joi.string().min(3).max(8).required(), 
-                            last_name : Joi.string().min(3).max(8).required(),
+                            id:Joi.number().integer().required(),
+                            email: Joi.string().required().email(),
+                            first_name : Joi.string().min(3).max(8), 
+                            last_name : Joi.string().min(3).max(8),
                             address: Joi.string(),
                             phoneNumber: Joi.string(),
                             password: Joi.string(),
