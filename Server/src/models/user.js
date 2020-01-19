@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import tokenHelper from '../helpers/token';
 class User{
     constructor(){
         this.users=[];
@@ -8,7 +7,6 @@ class User{
 
     createUser(user){
 
-        dotenv.config();
         const userAvailable = this.users.find((us)=>us.id==user.id);
         if(userAvailable){
             return "That id exists";
@@ -33,7 +31,7 @@ class User{
         };
         this.users.push(data);
         
-        const token=jwt.sign({email:user.email},process.env.PRIVATE_KEY);
+        const token= tokenHelper.encodeToken({"email":data.email,"id":data.id,"is_admin":data.is_admin});
 
         return {
             data:data,
@@ -48,7 +46,7 @@ class User{
         if(userExist){
 
            if( bcrypt.compareSync(user.password,userExist.password)){
-               const token= jwt.sign({email:userExist.email},process.env.PRIVATE_KEY);
+               const token= tokenHelper.encodeToken({"email":userExist.email,"id":userExist.id,"is_admin":userExist.is_admin});
                return {
                    user:userExist,
                    token:token
