@@ -82,6 +82,31 @@ const controller={
                 "data":result
             });
         }
+    },
+    deleteAnnouncement(req,res){
+        const token={
+            id:req.tokenId,
+            email:req.tokenEmail,
+            is_admin:req.tokenIs_admin
+        };
+        const result=AnnouncementModel.deleteAnnouncement(req.params.id,token);
+        if(result == "not admin"){
+            return res.status(401).json({
+                "status":"error",
+                "error":"You are not admin"
+            });
+        }
+        else if(result=="Not exists"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"Announcement does not exist"
+            });
+        }else{
+            return res.status(200).json({
+                "status":"success",
+                "data":result
+            });
+        }
     }
 
 }
