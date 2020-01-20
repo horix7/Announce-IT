@@ -22,6 +22,7 @@ module.exports={
                             end_date:Joi.date().required()
                         }).options({abortEarly : false}),
                 updateAnnounce:Joi.object().keys({
+                            id:Joi.number().integer(),
                             status:Joi.string().valid(['pending','accepted','declined','active','deactive']),
                             text:Joi.string(),
                             start_date:Joi.date(),

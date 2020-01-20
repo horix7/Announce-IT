@@ -30,6 +30,7 @@ class Announcement{
         const index=this.announcements.indexOf(checker);
         if(checker){
             if(token.is_admin){
+
                 return "admin"
             }else{
              if(token.id==checker.owner) {
@@ -47,6 +48,28 @@ class Announcement{
              }
             }
         }
+        else{
+            return "Not exists";
+        }
+    }
+    updateStatus(announcement,id,token){
+
+        const checker=this.announcements.find((announce)=>announce.id==id);
+        const index=this.announcements.indexOf(checker);
+        if(checker){
+        if(token.is_admin){
+            this.announcements[index].id=checker.id;
+            this.announcements[index].owner=checker.owner;
+            this.announcements[index].status=announcement.status || checker.status;
+            this.announcements[index].text=checker.text;
+            this.announcements[index].start_date=checker.start_date;
+            this.announcements[index].end_date=checker.end_date;
+
+            return this.announcements[index];
+        }
+    else{
+        return "not admin";
+    }}
         else{
             return "Not exists";
         }
