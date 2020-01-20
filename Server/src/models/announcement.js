@@ -74,5 +74,20 @@ class Announcement{
             return "Not exists";
         }
     }
+    deleteAnnouncement(id,token){
+        const checker=this.announcements.find((announce)=>announce.id==id);
+        const index=this.announcements.indexOf(checker);
+        if(checker){
+        if(token.is_admin){
+           this.announcements.splice(index,1);
+           return checker;
+        }
+    else{
+        return "not admin";
+    }}
+        else{
+            return "Not exists";
+        }
+    }
 }
 export default new Announcement();
