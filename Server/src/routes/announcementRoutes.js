@@ -5,6 +5,7 @@ import authenticate from '../middleware/authentication';
 
 const router = express.Router();
 
-router.post('/',authenticate,validateInput(schemas.announceSchema),controller.createAnnouncement)
+router.post('/',authenticate,validateInput(schemas.announceSchema),controller.createAnnouncement);
+router.patch('/:id',authenticate,validateInput(schemas.updateAnnounce),controller.updateAnnouncement);
 
 export const announceRouter=router;

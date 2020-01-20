@@ -16,10 +16,16 @@ module.exports={
              
                 announceSchema:Joi.object().keys({
                             id:Joi.number().integer().required(),
-                            status:Joi.string().valid('pending','accepted','declined','active','deactive'),
+                            status:Joi.string().valid(['pending','accepted','declined','active','deactive']),
                             text:Joi.string(),
                             start_date:Joi.date().required(),
                             end_date:Joi.date().required()
+                        }).options({abortEarly : false}),
+                updateAnnounce:Joi.object().keys({
+                            status:Joi.string().valid(['pending','accepted','declined','active','deactive']),
+                            text:Joi.string(),
+                            start_date:Joi.date(),
+                            end_date:Joi.date()
                         }).options({abortEarly : false})
                                    },
     validateInput:(schema)=>{
