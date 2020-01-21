@@ -109,5 +109,18 @@ class Announcement{
     else{
         return "not a user";
     }
-}}
+}
+viewAnnouncements(token){
+    const user= users.find((us)=>us.id==token.id);
+    if(user){
+        if(announcements){
+            return announcements;
+        }else{
+            return "no announcements";
+        }
+    }else{
+        return "not a user";
+    }
+}
+}
 export default new Announcement();
