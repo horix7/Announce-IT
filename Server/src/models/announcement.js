@@ -149,5 +149,20 @@ myAnnouncements(token){
         return "not a user";
     }
 }
+statusAnnouncement(status,token){
+    const user=users.find((us)=>us.id==token.id);
+    const announcement=announcements.find((announce)=>announce.status==status);
+
+    if(user){
+        if(announcement){
+            return announcement;
+        }
+        else{
+            return "not found";
+        }
+    }else{
+        return "not a user";
+    }
+}
 }
 export default new Announcement();

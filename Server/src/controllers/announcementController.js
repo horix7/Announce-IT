@@ -187,7 +187,7 @@ const controller={
             id:req.tokenId,
             email:req.tokenEmail,
             is_admin:req.tokenIs_admin
-        }
+        };
         const result=AnnouncementModel.myAnnouncements(token);
         if(result=="not found"){
             return res.status(403).json({
@@ -207,6 +207,34 @@ const controller={
                 "data":result
             });
         }
+    },
+    statusAnnouncement(req,res){
+        const token={
+            id:req.tokenId,
+            email:req.tokenEmail,
+            is_admin:req.tokenIs_admin
+        };
+        console.log(req.query.status,"OKKKK");
+        const result=AnnouncementModel.statusAnnouncement(req.query.status,token);
+        if(result=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"you are not a user"
+            });
+        }
+        else if(result=="not found"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"No announcements with that status"
+            });
+        }
+        else{
+            return res.status(200).json({
+                "status":"success",
+                "error":result
+            });
+        }
+
     }
 
 }
