@@ -1,18 +1,15 @@
 import bcrypt from 'bcrypt';
 import tokenHelper from '../helpers/token';
+import {users} from './userdb';
 class User{
-    constructor(){
-        this.users=[];
-    }
-
     createUser(user){
 
-        const userAvailable = this.users.find((us)=>us.id==user.id);
+        const userAvailable = users.find((us)=>us.id==user.id);
         if(userAvailable){
             return "That id exists";
         }else{
          
-        const user_exist= this.users.find((us)=>us.email==user.email);
+        const user_exist= users.find((us)=>us.email==user.email);
 
         if(user_exist){
             return "user exists";
@@ -29,7 +26,7 @@ class User{
             address:user.address,
             is_admin:user.is_admin
         };
-        this.users.push(data);
+        users.push(data);
         
         const token= tokenHelper.encodeToken({"email":data.email,"id":data.id,"is_admin":data.is_admin});
 
@@ -41,7 +38,7 @@ class User{
 }
 }
     login(user){
-        const userExist= this.users.find((us)=>us.email==user.email);
+        const userExist= users.find((us)=>us.email==user.email);
         
         if(userExist){
 
