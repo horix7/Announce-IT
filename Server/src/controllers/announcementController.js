@@ -156,6 +156,31 @@ const controller={
                 "data":results
             });
         }
+    },
+    announcementDetails(req,res){
+        const token={
+            id:req.tokenId,
+            email:req.tokenEmail,
+            is_admin:req.tokenIs_admin
+        }
+        const result=AnnouncementModel.announcementDetails(req.params.id,token);
+        if(result=="not a user"){
+            res.status(403).json({
+                "status":"error",
+                "error":"you are not a user"
+            });
+        }
+        else if(result=="not found"){
+            res.status(403).json({
+                "status":"error",
+                "error":"Announcement does not exists"
+            });
+        }else{
+            return res.status(200).json({
+                "status":"success",
+                "data":result
+            });  
+        }
     }
 
 }
