@@ -122,5 +122,18 @@ viewAnnouncements(token){
         return "not a user";
     }
 }
+announcementDetails(id,token){
+    const user=users.find((us)=>us.id==token.id);
+    if(user){
+        const announcement=announcements.find((announce)=>announce.id==id);
+        if(announcement){
+            return announcement;
+        }else{
+            return "not found";
+        }
+    }else{
+        return "not a user";
+    }
+}
 }
 export default new Announcement();
