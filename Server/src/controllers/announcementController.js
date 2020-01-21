@@ -130,6 +130,32 @@ const controller={
                 "data":result
             });
         }
+    },
+    viewAnnouncements(req,res){
+        const token={
+            id:req.tokenId,
+            email:req.tokenEmail,
+            is_admin:req.tokenIs_admin
+        }; 
+        const results=AnnouncementModel.viewAnnouncements(token);
+        if(results=="no announcements"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"Announcement does not exist"
+            });
+        }
+        else if(results=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"you are not a user"
+            });
+        }
+        else{
+            return res.status(200).json({
+                "status":"success",
+                "data":results
+            });
+        }
     }
 
 }

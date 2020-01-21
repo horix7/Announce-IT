@@ -9,6 +9,6 @@ router.post('/',authenticate,validateInput(schemas.announceSchema),controller.cr
 router.patch('/:id/sold',authenticate,validateInput(schemas.updateAnnounce),controller.updateStatus);
 router.patch('/:id',authenticate,validateInput(schemas.updateAnnounce),controller.updateAnnouncement);
 router.delete('/:id',authenticate,controller.deleteAnnouncement);
-
+router.get('/announcements',authenticate,controller.viewAnnouncements);
 
 export const announceRouter=router;
