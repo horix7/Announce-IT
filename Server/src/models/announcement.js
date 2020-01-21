@@ -135,5 +135,19 @@ announcementDetails(id,token){
         return "not a user";
     }
 }
+myAnnouncements(token){
+    const user=users.find((us)=>us.id==token.id);
+    const myAnnouncement=announcements.find((announce)=>announce.owner==user.id);
+    if(user){
+        if(myAnnouncement){
+            return myAnnouncement;
+        }
+        else{
+            return "not found";
+        }
+    }else{
+        return "not a user";
+    }
+}
 }
 export default new Announcement();

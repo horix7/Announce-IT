@@ -181,6 +181,32 @@ const controller={
                 "data":result
             });  
         }
+    },
+    myAnnouncements(req,res){
+        const token={
+            id:req.tokenId,
+            email:req.tokenEmail,
+            is_admin:req.tokenIs_admin
+        }
+        const result=AnnouncementModel.myAnnouncements(token);
+        if(result=="not found"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"you created no announcements"
+            });
+        }
+        else if(result=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"you are not a user"
+            });   
+        }
+        else{
+            return res.status(200).json({
+                "status":"success",
+                "data":result
+            });
+        }
     }
 
 }
