@@ -1,10 +1,12 @@
-import tokenHelper from '../helpers/token'
+import tokenHelper from '../helpers/token';
+import {users} from './userdb';
+import {announcements} from './announcementdb';
 class Announcement{
-    constructor(){
-        this.announcements=[];
-    }
+
     createAnnouncement(announcement,token){
-        const checker=this.announcements.find((announce)=>announce.id==announcement.id);
+        const checker=announcements.find((announce)=>announce.id==announcement.id);
+        const user=users.find((us)=>us.id==token.id);
+        if(user){
         if(checker){
             return "Announcement exists"
         }else{
@@ -20,28 +22,33 @@ class Announcement{
                 start_date:announcement.start_date,
                 end_date:announcement.end_date
             }
-            this.announcements.push(announcement1);
+            announcements.push(announcement1);
             return announcement1;
-        }}
+        }}}
+        else{
+            return "not a user";
+        }
     }
     updateAnnouncement(announcement,id,token){
         
-        const checker=this.announcements.find((announce)=>announce.id==id);
-        const index=this.announcements.indexOf(checker);
+        const checker=announcements.find((announce)=>announce.id==id);
+        const index=announcements.indexOf(checker);
+        const user=users.find((us)=>us.id==token.id);
+        if(user){
         if(checker){
             if(token.is_admin){
 
                 return "admin"
             }else{
              if(token.id==checker.owner) {
-                 this.announcements[index].id=checker.id;
-                 this.announcements[index].owner=checker.owner;
-                 this.announcements[index].status=checker.status;
-                 this.announcements[index].text=announcement.text||checker.text;
-                 this.announcements[index].start_date=announcement.start_date||checker.start_date;
-                 this.announcements[index].end_date=announcement.end_date||checker.end_date;
+                 announcements[index].id=checker.id;
+                 announcements[index].owner=checker.owner;
+                 announcements[index].status=checker.status;
+                 announcements[index].text=announcement.text||checker.text;
+                 announcements[index].start_date=announcement.start_date||checker.start_date;
+                 announcements[index].end_date=announcement.end_date||checker.end_date;
 
-                 return this.announcements[index];
+                 return announcements[index];
              }  
              else{
                  return "not the owner";
@@ -50,22 +57,27 @@ class Announcement{
         }
         else{
             return "Not exists";
+        }}
+        else{
+            return "not a user";
         }
     }
     updateStatus(announcement,id,token){
 
-        const checker=this.announcements.find((announce)=>announce.id==id);
-        const index=this.announcements.indexOf(checker);
+        const checker=announcements.find((announce)=>announce.id==id);
+        const index=announcements.indexOf(checker);
+        const user=users.find((us)=>us.id==token.id);
+        if(user){
         if(checker){
         if(token.is_admin){
-            this.announcements[index].id=checker.id;
-            this.announcements[index].owner=checker.owner;
-            this.announcements[index].status=announcement.status || checker.status;
-            this.announcements[index].text=checker.text;
-            this.announcements[index].start_date=checker.start_date;
-            this.announcements[index].end_date=checker.end_date;
+            announcements[index].id=checker.id;
+            announcements[index].owner=checker.owner;
+            announcements[index].status=announcement.status || checker.status;
+            announcements[index].text=checker.text;
+            announcements[index].start_date=checker.start_date;
+            announcements[index].end_date=checker.end_date;
 
-            return this.announcements[index];
+            return announcements[index];
         }
     else{
         return "not admin";
@@ -73,13 +85,18 @@ class Announcement{
         else{
             return "Not exists";
         }
+    }else{
+        return "not a user";
+    }
     }
     deleteAnnouncement(id,token){
-        const checker=this.announcements.find((announce)=>announce.id==id);
-        const index=this.announcements.indexOf(checker);
+        const checker=announcements.find((announce)=>announce.id==id);
+        const index=announcements.indexOf(checker);
+        const user=users.find((us)=>us.id==token.id);
+        if(user){
         if(checker){
         if(token.is_admin){
-           this.announcements.splice(index,1);
+           announcements.splice(index,1);
            return checker;
         }
     else{
@@ -89,5 +106,8 @@ class Announcement{
             return "Not exists";
         }
     }
-}
+    else{
+        return "not a user";
+    }
+}}
 export default new Announcement();

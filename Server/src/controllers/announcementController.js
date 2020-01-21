@@ -20,6 +20,11 @@ const controller={
                 "status":"error",
                 "error":"announcement exists"
             });
+        }else if(announcement=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"user does not exist"
+            });
         }
         else{
             return res.status(201).json({
@@ -51,7 +56,13 @@ const controller={
                 "status":"error",
                 "error":"Announcement does not exist"
             });
-        }else{
+        }else if(result=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"user does not exist"
+            });
+        }
+        else{
             return res.status(200).json({
                 "status":"success",
                 "data":result
@@ -76,7 +87,13 @@ const controller={
                 "status":"error",
                 "error":"Announcement does not exist"
             });
-        }else{
+        }else if(result=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"user does not exist"
+            });
+        }
+        else{
             return res.status(200).json({
                 "status":"success",
                 "data":result
@@ -101,7 +118,13 @@ const controller={
                 "status":"error",
                 "error":"Announcement does not exist"
             });
-        }else{
+        }else if(result=="not a user"){
+            return res.status(403).json({
+                "status":"error",
+                "error":"user does not exist"
+            });
+        }
+        else{
             return res.status(200).json({
                 "status":"success",
                 "data":result
