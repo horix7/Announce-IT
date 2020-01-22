@@ -3,10 +3,10 @@ function hide(id){
     document.getElementById(id).remove();
 }
 function details(){
-    document.getElementById('more').style.visibility='visible';
+    document.getElementById('hold').style.visibility='visible';
 }
 function closed(){
-        document.getElementById('more').style.visibility="hidden";
+        document.getElementById('hold').style.visibility="hidden";
      
 }
 function login(){
