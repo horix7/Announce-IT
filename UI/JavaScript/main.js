@@ -2,8 +2,8 @@ var status=['accepted','declined','active','deactive'];
 function hide(id){
     document.getElementById(id).remove();
 }
-function details(){
-    document.getElementById('hold').style.visibility='visible';
+function details(id){
+    document.getElementById(id).style.visibility='visible';
 }
 function closed(){
         document.getElementById('hold').style.visibility="hidden";
@@ -21,5 +21,7 @@ function login(){
     else{
         location.replace("../HTML/create-announcement-page.html")
         
+    }}
+    function otherInfo(id){
+        document.getElementById(id).style.visibility="visible";
     }
-}
