@@ -23,5 +23,11 @@ function login(){
         
     }}
     function otherInfo(id){
-        document.getElementById(id).style.visibility="visible";
+        var elmnt=document.getElementById(id);
+        if(elmnt.style.visibility=="hidden"){
+        elmnt.style.visibility="visible";
+        }
+        else{
+        elmnt.style.visibility="hidden";
+        }
     }
