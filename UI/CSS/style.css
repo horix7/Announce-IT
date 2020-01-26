@@ -13,11 +13,11 @@ body{
     grid-template-rows: 60px 450px 200px;
 }
 .container.land{
+    position: fixed;
     height: 100vh;
     width: 100%;
-    background-image: url('../image/photo-1416339306562-f3d12fefd36fppp\ \(1\).jpg');
+    background-image: url('../image/photoAnn.jpg');
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
 }
 .navbar{
@@ -59,6 +59,18 @@ body{
     text-align: left;
     color: black;
 
+}
+.website-details{
+    position: absolute;
+    top:22%;
+    left:33%;
+    grid-column: 1/-1;
+    text-align: center;
+    
+}
+.website-details>p{
+    font-size: 20px;
+    color: rgb(4, 16, 65);
 }
 .more-details>p{
     color: black;
@@ -213,6 +225,11 @@ input[type="submit"],.middle-btn>a{
     border-bottom: 1px solid rgb(196, 192, 192);
 }
 .field.txtarea{
+    max-height: 25px;
+    min-height: 25px;
+    padding: 20px 0px;
+    max-width: 90%;
+    min-width: 90%;
     margin-top: 0px;
 }
 .field:focus,.dateField:focus {
@@ -226,6 +243,10 @@ input[type="submit"],.middle-btn>a{
     font-size: 12px;
     opacity: 0;
     padding: 0px 0px;
+}
+.field:valid + .floating-label.txtarea{
+    top:5px;
+
 }
 .field:valid + .floating-label{
     opacity: 1;
@@ -258,7 +279,7 @@ form{
 
 textarea::placeholder{
 text-align: left;
-transform: translateY(18px);
+transform: translateY(25px);
 }
 textarea{
     align-content: center;
@@ -325,7 +346,7 @@ grid-column: 2/-2;
 grid-row: 2/-2;
 }
 .middle-btn>a{
-    margin-top: 30%;
+    margin-top: 55%;
     padding-top: 18px;
     border-radius: 100px;
     height: 8%;
