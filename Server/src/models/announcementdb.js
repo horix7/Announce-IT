@@ -1,2 +1,0 @@
-const announcements=[];
-export{announcements};
