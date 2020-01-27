@@ -5,7 +5,7 @@ const authenticate = (req, res, next) => {
   try {
     const decode = tokenHelper.decodeToken(authHeaders);
     req.tokenId = decode.id;
-    req.tokenIs_admin = decode.is_admin;
+    req.tokenIsAdmin = decode.isAdmin;
     req.tokenEmail = decode.email;
     return next();
   } catch (err) {
