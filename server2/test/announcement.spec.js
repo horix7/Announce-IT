@@ -205,6 +205,37 @@ describe('announcement tests', () => {
       });
   });
 
+  it('should allow a user to view announcement details based on status', () => {
+    chai.request(app)
+      .get(`/api/v1/announcement/status?status=active`)
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        res.status.should.be.equal(200);
+      });
+  });
+  it('should not allow a wrong user to view announcement details based on status', () => {
+    chai.request(app)
+      .get(`/api/v1/announcement/status?status=active`)
+      .set('token', wrongToken)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
+      });
+  });
+  it('should allow a user to view announcement details based on status', () => {
+    chai.request(app)
+      .get(`/api/v1/announcement/status?status=pending`)
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
+      });
+  });
+
   it('should allow a user to view all announcements', () => {
     chai.request(app)
       .get('/api/v1/announcement/announcements')
