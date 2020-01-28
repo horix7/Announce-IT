@@ -117,6 +117,7 @@ export default class Announcement {
   static announcementDetails(id, token) {
     const user = users.find((us) => us.id === parseInt(token.id));
     if (user) {
+      console.log('details');
       const announcement = announcements.find((announce) => announce.id === parseInt(id));
       if (announcement) {
         return announcement;
@@ -134,6 +135,18 @@ export default class Announcement {
         return myAnnouncement;
       }
 
+      return 'not found';
+    }
+    return 'not a user';
+  }
+  static statusBasedAnnouncement(status, token) {
+    const user = users.find((us) => us.id === parseInt(token.id));
+    console.log('status',status);
+    if (user) {
+      const announcement = announcements.find((announce) => announce.status === status);
+      if (announcement) {
+        return announcement;
+      }
       return 'not found';
     }
     return 'not a user';
