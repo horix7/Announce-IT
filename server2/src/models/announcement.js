@@ -134,10 +134,9 @@ export default class Announcement {
   }
   static statusBasedAnnouncement(status, token) {
     const user = users.find((us) => us.id === parseInt(token.id));
-    console.log('status',status);
     if (user) {
-      const announcement = announcements.find((announce) => announce.status === status);
-      if (announcement) {
+      const announcement = announcements.filter((announce) => announce.status === status);
+      if (announcement.length > 0) {
         return announcement;
       }
       return 'not found';
