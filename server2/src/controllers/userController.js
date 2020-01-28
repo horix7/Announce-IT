@@ -10,10 +10,10 @@ const userController = {
         error: 'That email has been used',
       });
     }
-    if (user === 'That id exists') {
+    if (user === 'password do not match') {
       return res.status(403).json({
-        status: 'error',
-        error: 'That id already exists',
+        status:'error',
+        error:'password must match confirm'
       });
     }
     return res.status(201).json({
@@ -21,12 +21,12 @@ const userController = {
       data: {
         token: user.token,
         id: user.data.id,
-        first_name: user.data.first_name,
-        last_name: user.data.last_name,
+        firstName: user.data.firstName,
+        lastName: user.data.lastName,
         email: user.data.email,
         address: user.data.address,
         phoneNumber: user.data.phoneNumber,
-        is_admin: user.is_admin,
+        isAdmin: user.isAdmin,
       },
     });
   },
@@ -50,13 +50,13 @@ const userController = {
       status: 'success',
       data: {
         token: login.token,
-        id: login.user.id,
-        first_name: login.user.first_name,
-        last_name: login.user.last_name,
-        email: login.user.email,
-        address: login.user.address,
-        phoneNumber: login.user.phoneNumber,
-        is_admin: login.user.is_admin,
+        id: login.userExist.id,
+        firstName: login.userExist.firstName,
+        lastName: login.userExist.lastName,
+        email: login.userExist.email,
+        address: login.userExist.address,
+        phoneNumber: login.userExist.phoneNumber,
+        isAdmin: login.userExist.isAdmin,
       },
     });
   },

@@ -1,25 +1,20 @@
 
 import users from './userdb';
 import announcements from './announcementdb';
-
 export default class Announcement {
   static createAnnouncement(announcement, token) {
-    const checker = announcements.find((announce) => announce.id === announcement.id);
-    const user = users.find((us) => us.id === token.id);
+    const user = users.find((us) => us.id === parseInt(token.id));
     if (user) {
-      if (checker) {
-        return 'Announcement exists';
-      }
-      if (token.is_admin) {
+      if (token.isAdmin) {
         return 'admin';
       }
       const announcement1 = {
-        id: announcement.id,
+        id: (announcements.length)+1,
         owner: token.id,
         status: announcement.status || 'pending',
         text: announcement.text,
-        start_date: announcement.start_date,
-        end_date: announcement.end_date,
+        startDate: announcement.startDate,
+        endDate: announcement.endDate,
       };
       announcements.push(announcement1);
       return announcement1;
@@ -32,19 +27,18 @@ export default class Announcement {
     const checker = announcements.find((announce) => announce.id === parseInt(id, 10));
     const index = announcements.indexOf(checker);
     const user = users.find((us) => us.id === parseInt(token.id, 10));
-
     if (user) {
       if (checker) {
-        if (token.is_admin) {
+        if (token.isAdmin) {
           return 'admin';
         }
-        if (token.id === checker.owner) {
+        if (parseInt(token.id,10) === checker.owner) {
           announcements[index].id = checker.id;
           announcements[index].owner = checker.owner;
           announcements[index].status = checker.status;
           announcements[index].text = announcement.text || checker.text;
-          announcements[index].start_date = announcement.start_date || checker.start_date;
-          announcements[index].end_date = announcement.end_date || checker.end_date;
+          announcements[index].startDate = announcement.startDate || checker.startDate;
+          announcements[index].endDate = announcement.endDate || checker.endDate;
 
           return announcements[index];
         }
@@ -59,18 +53,18 @@ export default class Announcement {
   }
 
   static updateStatus(announcement, id, token) {
-    const checker = announcements.find((announce) => announce.id === parseInt(id));
+    const checker = announcements.find((announce) => announce.id === parseInt(id,10));
     const index = announcements.indexOf(checker);
-    const user = users.find((us) => us.id === parseInt(token.id));
+    const user = users.find((us) => us.id === parseInt(token.id,10));
     if (user) {
       if (checker) {
-        if (token.is_admin) {
+        if (token.isAdmin) {
           announcements[index].id = checker.id;
           announcements[index].owner = checker.owner;
           announcements[index].status = announcement.status || checker.status;
           announcements[index].text = checker.text;
-          announcements[index].start_date = checker.start_date;
-          announcements[index].end_date = checker.end_date;
+          announcements[index].startDate = checker.startDate;
+          announcements[index].endDate = checker.endDate;
 
           return announcements[index];
         }
@@ -84,12 +78,12 @@ export default class Announcement {
   }
 
   static deleteAnnouncement(id, token) {
-    const checker = announcements.find((announce) => announce.id === parseInt(id));
+    const checker = announcements.find((announce) => announce.id === parseInt(id,10));
     const index = announcements.indexOf(checker);
-    const user = users.find((us) => us.id === parseInt(token.id));
+    const user = users.find((us) => us.id === parseInt(token.id,10));
     if (user) {
       if (checker) {
-        if (token.is_admin) {
+        if (token.isAdmin) {
           announcements.splice(index, 1);
           return checker;
         }
@@ -104,7 +98,7 @@ export default class Announcement {
   }
 
   static viewAnnouncements(token) {
-    const user = users.find((us) => us.id === parseInt(token.id));
+    const user = users.find((us) => us.id === parseInt(token.id,10));
     if (user) {
       if (announcements) {
         return announcements;
@@ -115,9 +109,9 @@ export default class Announcement {
   }
 
   static announcementDetails(id, token) {
-    const user = users.find((us) => us.id === parseInt(token.id));
+    const user = users.find((us) => us.id === parseInt(token.id,10));
     if (user) {
-      const announcement = announcements.find((announce) => announce.id === parseInt(id));
+      const announcement = announcements.find((announce) => announce.id === parseInt(id,10));
       if (announcement) {
         return announcement;
       }
@@ -127,8 +121,8 @@ export default class Announcement {
   }
 
   static myAnnouncements(token) {
-    const user = users.find((us) => us.id === parseInt(token.id));
-    const myAnnouncement = announcements.find((announce) => announce.owner === parseInt(user.id));
+    const user = users.find((us) => us.id === parseInt(token.id,10));
+    const myAnnouncement = announcements.find((announce) => announce.owner === parseInt(user.id,10));
     if (user) {
       if (myAnnouncement) {
         return myAnnouncement;

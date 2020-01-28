@@ -6,7 +6,7 @@ const controller = {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const announcement = AnnouncementModel.createAnnouncement(req.body, token);
     if (announcement === 'admin') {
@@ -15,12 +15,7 @@ const controller = {
         error: 'You are not an advertiser',
       });
     }
-    if (announcement === 'Announcement exists') {
-      return res.status(403).json({
-        status: 'error',
-        error: 'announcement exists',
-      });
-    } if (announcement === 'not a user') {
+    if (announcement === 'not a user') {
       return res.status(403).json({
         status: 'error',
         error: 'user does not exist',
@@ -36,7 +31,7 @@ const controller = {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const result = AnnouncementModel.updateAnnouncement(req.body, req.params.id, token);
     if (result === 'admin') {
@@ -71,7 +66,7 @@ const controller = {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const result = AnnouncementModel.updateStatus(req.body, req.params.id, token);
     if (result === 'not admin') {
@@ -97,11 +92,12 @@ const controller = {
       data: result,
     });
   },
+  
   deleteAnnouncement(req, res) {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const result = AnnouncementModel.deleteAnnouncement(req.params.id, token);
     if (result === 'not admin') {
@@ -131,7 +127,7 @@ const controller = {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const results = AnnouncementModel.viewAnnouncements(token);
     if (results === 'no announcements') {
@@ -156,7 +152,7 @@ const controller = {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const result = AnnouncementModel.announcementDetails(req.params.id, token);
     if (result === 'not a user') {
@@ -179,7 +175,7 @@ const controller = {
     const token = {
       id: req.tokenId,
       email: req.tokenEmail,
-      is_admin: req.tokenIs_admin,
+      isAdmin: req.tokenIsAdmin,
     };
     const result = AnnouncementModel.myAnnouncements(token);
     if (result === 'not found') {
