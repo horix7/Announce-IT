@@ -11,6 +11,6 @@ router.patch('/:id', authenticate, validateInput(schemas.updateAnnounce), contro
 router.delete('/:id', authenticate, controller.deleteAnnouncement);
 router.get('/announcements', authenticate, controller.viewAnnouncements);
 router.get('/myannouncements', authenticate, controller.myAnnouncements);
+router.get('/{status}', authenticate, controller.statusBasedAnnouncement);
 router.get('/:id', authenticate, controller.announcementDetails);
-
 export default router;

@@ -196,6 +196,30 @@ const controller = {
       data: result,
     });
   },
+  statusBasedAnnouncement(req, res) {
+    const token = {
+      id: req.tokenId,
+      email: req.tokenEmail,
+      is_admin: req.tokenIs_admin,
+    };
+    console.log('query',req.query.status);
+    const result = AnnouncementModel.statusBasedAnnouncement(req.query.status, token);
+    if (result === 'not a user') {
+      return res.status(403).json({
+        status: 'error',
+        error: 'you are not a user',
+      });
+    } if (result === 'not found') {
+      return res.status(403).json({
+        status: 'error',
+        error: 'Announcement does not exists',
+      });
+    }
+    return res.status(200).json({
+      status: 'success',
+      data: result,
+    });
+  }
 
 };
 export default controller;

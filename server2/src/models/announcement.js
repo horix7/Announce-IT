@@ -132,4 +132,16 @@ export default class Announcement {
     }
     return 'not a user';
   }
+  static statusBasedAnnouncement(status, token) {
+    const user = users.find((us) => us.id === parseInt(token.id));
+    console.log('status',status);
+    if (user) {
+      const announcement = announcements.find((announce) => announce.status === status);
+      if (announcement) {
+        return announcement;
+      }
+      return 'not found';
+    }
+    return 'not a user';
+  }
 }
