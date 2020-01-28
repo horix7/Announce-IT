@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../src/server';
@@ -22,11 +23,11 @@ describe('user tests', () => {
       email: 'ugi@gmail.com',
       address: 'kamembe',
       password: '100',
-      confirm:'100',
+      confirm: '100',
       phoneNumber: '0782234092',
       isAdmin: true,
     };
-    
+
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send(user1)
@@ -42,7 +43,7 @@ describe('user tests', () => {
       email: 'juju@gmail.com',
       address: 'kamembe',
       password: '100',
-      confirm:'100',
+      confirm: '100',
       phoneNumber: '0788525846',
       isAdmin: false,
     };
@@ -60,8 +61,8 @@ describe('user tests', () => {
       lastName: 'divine',
       email: 'ugizw@gmail.com',
       address: 'kamembe',
-      password: '100', 
-      confirm:'100',
+      password: '100',
+      confirm: '100',
       phoneNumber: '0782234092',
       isAdmin: false,
     };
@@ -80,7 +81,7 @@ describe('user tests', () => {
       email: 'ugi@gmail.com',
       address: 'kamembe',
       password: '100',
-      confirm:'100',
+      confirm: '100',
       phoneNumber: '0782234092',
       isAdmin: true,
     };
@@ -92,25 +93,25 @@ describe('user tests', () => {
         res.body.error.should.be.equal('That email has been used');
       });
   });
-  it('user should not signup when password and confirm are different',()=>{
+  it('user should not signup when password and confirm are different', () => {
     const userP = {
       firstName: 'ugizwe',
       lastName: 'divine',
       email: 'ugiP@gmail.com',
       address: 'kamembe',
       password: '100',
-      confirm:'101',
+      confirm: '101',
       phoneNumber: '0782234092',
       isAdmin: true,
     };
     chai.request(app)
-    .post('/api/v1/auth/signup')
-    .send(userP)
-    .end((err,res)=>{
-      res.status.should.be.equal(403);
-      res.body.error.should.be.equal('password must match confirm');
-    })
-  })
+      .post('/api/v1/auth/signup')
+      .send(userP)
+      .end((err, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('password must match confirm');
+      });
+  });
   it('user should be allowed to login', () => {
     const user1Login = {
       email: 'ugi@gmail.com',

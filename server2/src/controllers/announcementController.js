@@ -92,7 +92,7 @@ const controller = {
       data: result,
     });
   },
-  
+
   deleteAnnouncement(req, res) {
     const token = {
       id: req.tokenId,
@@ -202,7 +202,6 @@ const controller = {
       email: req.tokenEmail,
       is_admin: req.tokenIs_admin,
     };
-    console.log('query',req.query.status);
     const result = AnnouncementModel.statusBasedAnnouncement(req.query.status, token);
     if (result === 'not a user') {
       return res.status(403).json({
@@ -219,7 +218,7 @@ const controller = {
       status: 'success',
       data: result,
     });
-  }
+  },
 
 };
 export default controller;

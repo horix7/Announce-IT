@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
-let pass="200";
-pass=bcrypt.hashSync(pass,10);
+
+let pass = '200';
+pass = bcrypt.hashSync(pass, 10);
 const users = [{
   id: 1,
   firstName: 'ukundwa',

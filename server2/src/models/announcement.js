@@ -1,15 +1,16 @@
 
 import users from './userdb';
 import announcements from './announcementdb';
+
 export default class Announcement {
   static createAnnouncement(announcement, token) {
-    const user = users.find((us) => us.id === parseInt(token.id));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
     if (user) {
       if (token.isAdmin) {
         return 'admin';
       }
       const announcement1 = {
-        id: (announcements.length)+1,
+        id: (announcements.length) + 1,
         owner: token.id,
         status: announcement.status || 'pending',
         text: announcement.text,
@@ -32,7 +33,7 @@ export default class Announcement {
         if (token.isAdmin) {
           return 'admin';
         }
-        if (parseInt(token.id,10) === checker.owner) {
+        if (parseInt(token.id, 10) === checker.owner) {
           announcements[index].id = checker.id;
           announcements[index].owner = checker.owner;
           announcements[index].status = checker.status;
@@ -53,9 +54,9 @@ export default class Announcement {
   }
 
   static updateStatus(announcement, id, token) {
-    const checker = announcements.find((announce) => announce.id === parseInt(id,10));
+    const checker = announcements.find((announce) => announce.id === parseInt(id, 10));
     const index = announcements.indexOf(checker);
-    const user = users.find((us) => us.id === parseInt(token.id,10));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
     if (user) {
       if (checker) {
         if (token.isAdmin) {
@@ -78,9 +79,9 @@ export default class Announcement {
   }
 
   static deleteAnnouncement(id, token) {
-    const checker = announcements.find((announce) => announce.id === parseInt(id,10));
+    const checker = announcements.find((announce) => announce.id === parseInt(id, 10));
     const index = announcements.indexOf(checker);
-    const user = users.find((us) => us.id === parseInt(token.id,10));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
     if (user) {
       if (checker) {
         if (token.isAdmin) {
@@ -98,7 +99,7 @@ export default class Announcement {
   }
 
   static viewAnnouncements(token) {
-    const user = users.find((us) => us.id === parseInt(token.id,10));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
     if (user) {
       if (announcements) {
         return announcements;
@@ -109,9 +110,9 @@ export default class Announcement {
   }
 
   static announcementDetails(id, token) {
-    const user = users.find((us) => us.id === parseInt(token.id,10));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
     if (user) {
-      const announcement = announcements.find((announce) => announce.id === parseInt(id,10));
+      const announcement = announcements.find((announce) => announce.id === parseInt(id, 10));
       if (announcement) {
         return announcement;
       }
@@ -121,8 +122,9 @@ export default class Announcement {
   }
 
   static myAnnouncements(token) {
-    const user = users.find((us) => us.id === parseInt(token.id,10));
-    const myAnnouncement = announcements.find((announce) => announce.owner === parseInt(user.id,10));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
+    const myAnnouncement = announcements
+      .find((announce) => announce.owner === parseInt(user.id, 10));
     if (user) {
       if (myAnnouncement) {
         return myAnnouncement;
@@ -132,8 +134,9 @@ export default class Announcement {
     }
     return 'not a user';
   }
+
   static statusBasedAnnouncement(status, token) {
-    const user = users.find((us) => us.id === parseInt(token.id));
+    const user = users.find((us) => us.id === parseInt(token.id, 10));
     if (user) {
       const announcement = announcements.filter((announce) => announce.status === status);
       if (announcement.length > 0) {

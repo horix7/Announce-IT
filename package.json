@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register ./test/*.spec.js --exit",
-    "start": "nodemon --exec babel-node ./src/server.js",
-    "build": "babel src --out-dir dist",
-    "serve": "node dist/server.js",
-    "lint": "./node_modules/.bin/eslint ./src",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register ./server2/test/*.spec.js --exit",
+    "dev": "npm run lint-correct && nodemon --exec babel-node ./server2/src/server.js",
+    "start": "babel-node ./server2/src/server.js",
+    "build": "babel ./server2/src --out-dir dist",
+    "serve": "node ./server2/dist/server.js",
+    "lint": "./node_modules/.bin/eslint ./server2/src",
     "lint-correct": "eslint ./ --fix"
   },
   "keywords": [],
