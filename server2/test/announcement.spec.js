@@ -2,7 +2,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../src/server';
 import token from './auth.spec';
-import tokenHelper from '../src/helpers/token';
 
 chai.should();
 
@@ -32,9 +31,9 @@ const announcement3={
 }
 const wrongToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1a2lAZ21haWwuY29tIiwiaWQiOjE4NDEsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1Nzk4MTcxNjh9.1u-ZdPxLjeImFinFx2vJQC1dfiMsiVTAzRjvnFfV1P4';
 
-describe('announcement test', () => {
+describe('announcement tests', () => {
   let id;
-  it('not logged in', () => {
+  it('should not create announcement if not logged in', () => {
     chai.request(app)
       .post('/api/v1/announcement')
       .send(announcement)
@@ -43,7 +42,7 @@ describe('announcement test', () => {
         res.body.status.should.be.equal('error');
       });
   });
-  it('not valid input', () => {
+  it('should create announcement with valid inputs', () => {
     chai.request(app)
       .post('/api/v1/announcement')
       .set('token', token.token)
@@ -52,7 +51,7 @@ describe('announcement test', () => {
         res.status.should.be.equal(400);
       });
   });
-  it('create announcement', () => {
+  it('should allow an advertiser to create announcement', () => {
     chai.request(app)
       .post('/api/v1/announcement')
       .set('token', token.token)
@@ -63,7 +62,7 @@ describe('announcement test', () => {
         res.body.status.should.be.equal('success');
       });
   });
-  it('not advertiser', () => {
+  it('should not allow an admin to create an announcement', () => {
     chai.request(app)
       .post('/api/v1/announcement')
       .set('token', token.tokenAdmin)
@@ -73,7 +72,7 @@ describe('announcement test', () => {
         res.body.status.should.be.equal('error');
       });
   });
-  it('user does not exist', () => {
+  it('should not allow wrong user to create announcement', () => {
     chai.request(app)
       .post('/api/v1/announcement')
       .set('token', wrongToken)
@@ -83,7 +82,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('user does not exist');
       });
   });
-  it('user does not exist update', () => {
+  it('should not allow wrong user to update announcement', () => {
     chai.request(app)
       .patch(`/api/v1/announcement/${id}`)
       .set('token', wrongToken)
@@ -93,7 +92,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('user does not exist');
       });
   });
-  it('not owner', () => {
+  it('should not allow user to update announcement of others', () => {
     chai.request(app)
       .patch(`/api/v1/announcement/${id}`)
       .set('token', token.token2)
@@ -102,7 +101,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('You are not the owner');
       });
   });
-  it('announcement not exist', () => {
+  it('should not allow to update announcement that does not exist', () => {
     chai.request(app)
       .patch('/api/v1/announcement/5')
       .set('token', token.token)
@@ -112,7 +111,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('Announcement does not exist');
       });
   });
-  it('you are not advertiser', () => {
+  it('should not allow admin to update announcement details ', () => {
     chai.request(app)
       .patch(`/api/v1/announcement/${id}`)
       .set('token', token.tokenAdmin)
@@ -123,18 +122,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('announcement update', () => {
-    chai.request(app)
-      .patch('/api/v1/announcement/4')
-      .set('token', token.token)
-      .send(announcement)
-      .end((err, res) => {
-
-        res.body.status.should.be.equal('success');
-        res.status.should.be.equal(200);
-      });
-  });
-    it('announcement update', () => {
+  it('should allow an advertiser to update announcement', () => {
     chai.request(app)
       .patch('/api/v1/announcement/4')
       .set('token', token.token)
@@ -146,7 +134,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('announcement update', () => {
+  it('should allow an admin to update announcement status', () => {
     chai.request(app)
       .patch('/api/v1/announcement/4/sold')
       .set('token', token.tokenAdmin)
@@ -157,7 +145,7 @@ describe('announcement test', () => {
       });
   });
   
-  it('announcement not exist admin', () => {
+  it('should allow an admin to update exist announcement status', () => {
     chai.request(app)
       .patch('/api/v1/announcement/5/sold')
       .set('token', token.tokenAdmin)
@@ -167,7 +155,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('Announcement does not exist');
       });
   });
-  it('not admin', () => {
+  it('should not allow an advertiser to update announcement status', () => {
     chai.request(app)
       .patch(`/api/v1/announcement/${id}/sold`)
       .set('token', token.token)
@@ -176,7 +164,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('You are not admin');
       });
   });
-  it('not user', () => {
+  it('should not allow a wrong user to update announcement status', () => {
     chai.request(app)
       .patch(`/api/v1/announcement/${id}/sold`)
       .set('token', wrongToken)
@@ -186,7 +174,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('user does not exist');
       });
   });
-  it('announcement', () => {
+  it('should allow a user to view announcement details', () => {
     chai.request(app)
       .get(`/api/v1/announcement/${id}`)
       .set('token', token.token)
@@ -196,7 +184,7 @@ describe('announcement test', () => {
         res.status.should.be.equal(200);
       });
   });
-  it('not user announcement', () => {
+  it('should not allow a wrong user to view announcement details', () => {
     chai.request(app)
       .get(`/api/v1/announcement/${id}`)
       .set('token', wrongToken)
@@ -206,7 +194,7 @@ describe('announcement test', () => {
         res.status.should.be.equal(403);
       });
   });
-  it('announcement not exist', () => {
+  it('should allow a user to view exist announcement details', () => {
     chai.request(app)
       .get('/api/v1/announcement/11')
       .set('token', token.token)
@@ -217,7 +205,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('announcements', () => {
+  it('should allow a user to view all announcements', () => {
     chai.request(app)
       .get('/api/v1/announcement/announcements')
       .set('token', token.token)
@@ -227,7 +215,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('not user announcements', () => {
+  it('should not allow a wrong user to view all announcements', () => {
     chai.request(app)
       .get('/api/v1/announcement/announcements')
       .set('token', wrongToken)
@@ -237,7 +225,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('myannouncements', () => {
+  it('should allow an advertiser to view all his announcements', () => {
     chai.request(app)
       .get('/api/v1/announcement/myannouncements')
       .set('token', token.token)
@@ -246,7 +234,7 @@ describe('announcement test', () => {
         res.body.status.should.be.equal('success');
       });
   });
-  it('no myannouncements', () => {
+  it('should allow an advertiser to know when He created no announcements', () => {
     chai.request(app)
       .get('/api/v1/announcement/myannouncements')
       .set('token', token.token2)
@@ -255,7 +243,7 @@ describe('announcement test', () => {
         res.body.error.should.be.equal('you created no announcements');
       });
   });
-  it('not admin delete', () => {
+  it('should not allow an advertiser to delete announcement ', () => {
     chai.request(app)
       .delete('/api/v1/announcement/3')
       .set('token', token.token)
@@ -266,7 +254,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('not user delete', () => {
+  it('should not allow a wrong user to delete announcement', () => {
     chai.request(app)
       .delete('/api/v1/announcement/3')
       .set('token', wrongToken)
@@ -277,7 +265,7 @@ describe('announcement test', () => {
       });
   });
 
-  it('announcement not exist delete', () => {
+  it('should allow an admin to delete exist announcement', () => {
     chai.request(app)
       .delete('/api/v1/announcement/9')
       .set('token', token.tokenAdmin)
@@ -288,7 +276,7 @@ describe('announcement test', () => {
       });
   });
   
-  it('delete', () => {
+  it('should allow an admin to delete announcement', () => {
     chai.request(app)
       .delete('/api/v1/announcement/4')
       .set('token', token.tokenAdmin)

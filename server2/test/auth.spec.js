@@ -15,7 +15,7 @@ const notExist = {
   password: '100',
 };
 describe('user tests', () => {
-  it('user signup', () => {
+  it('an admin should be able to signup', () => {
     const user1 = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -35,7 +35,7 @@ describe('user tests', () => {
         res.body.status.should.be.equal('success');
       });
   });
-  it('user signup', () => {
+  it('an advertiser should be able to signup', () => {
     const user2 = {
       firstName: 'hirwa',
       lastName: 'juju',
@@ -54,7 +54,7 @@ describe('user tests', () => {
         res.body.status.should.be.equal('success');
       });
   });
-  it('user signup', () => {
+  it('an advertiser should be able to signup', () => {
     const user3 = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -73,7 +73,7 @@ describe('user tests', () => {
         res.body.status.should.be.equal('success');
       });
   });
-  it('user exists', () => {
+  it('user should not be allowed to signup with a used email before', () => {
     const user1 = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -92,7 +92,7 @@ describe('user tests', () => {
         res.body.error.should.be.equal('That email has been used');
       });
   });
-  it('password not match',()=>{
+  it('user should not signup when password and confirm are different',()=>{
     const userP = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -111,7 +111,7 @@ describe('user tests', () => {
       res.body.error.should.be.equal('password must match confirm');
     })
   })
-  it('user login', () => {
+  it('user should be allowed to login', () => {
     const user1Login = {
       email: 'ugi@gmail.com',
       password: '100',
@@ -124,7 +124,7 @@ describe('user tests', () => {
         res.body.status.should.be.equal('success');
       });
   });
-  it('user login wrong password', () => {
+  it('user should not login with wrong password', () => {
     const wrongPass = {
       email: 'ugi@gmail.com',
       password: '105',
@@ -136,7 +136,7 @@ describe('user tests', () => {
         res.body.error.should.be.equal('incorrect password');
       });
   });
-  it('user does not exist', () => {
+  it('user should not login unless he has an account', () => {
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send(notExist)
