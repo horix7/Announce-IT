@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import query from '../db/index';
 
 const createTableUsers = `CREATE TABLE IF NOT EXISTS 
@@ -25,7 +26,8 @@ const createTableAnnouncements = `CREATE TABLE IF NOT EXISTS
     )`;
 const create = async () => {
   const tables = `${createTableUsers};${createTableAnnouncements}`;
-  await query.query2(tables);
+  await query.query2(tables)
+    .catch((err) => console.log(err));
 };
 create();
 
