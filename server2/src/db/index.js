@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import config from '../config/config';
 
 dotenv.config();
-console.log('conectenv', process.env.NODE_ENV);
 const pool = new Pool({
   connectionString: process.env.NODE_ENV === 'test' ? config.test.databaseUrl : config.development.databaseUrl,
 });

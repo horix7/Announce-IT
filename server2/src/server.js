@@ -2,7 +2,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import parser from 'body-parser';
-import routers from './routesV2/userRoutes';
+import routers from './routes/userRoutes';
+import routersV2 from './routesV2/userRoutes';
 import announceRouter from './routes/announcementRoutes';
 
 
@@ -13,7 +14,8 @@ app.use(express.json());
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
 
-app.use('/api/v2/auth', routers);
+app.use('/api/v1/auth', routers);
+app.use('/api/v2/auth', routersV2);
 app.use('/api/v1/announcement', announceRouter);
 app.get('/', (req, res) => res.status(200).json({
   status: 'success',

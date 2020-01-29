@@ -13,7 +13,7 @@ const token = {
 };
 
 describe('user tests', () => {
-  it('an admin should be able to signup', () => {
+  it('an admin should be able to signup', (done) => {
     const user1 = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -24,16 +24,16 @@ describe('user tests', () => {
       phoneNumber: '0782234092',
       isAdmin: true,
     };
-
     chai.request(app)
       .post('/api/v2/auth/signup')
       .send(user1)
       .end((err, res) => {
-        token.tokenAdmin = res.body.data.token;
+        token.tokenAdmin = res.body.data.dataToken;
         res.body.status.should.be.equal('success');
+        done();
       });
   });
-  it('an advertiser should be able to signup', () => {
+  it('an advertiser should be able to signup', (done) => {
     const user2 = {
       firstName: 'hirwa',
       lastName: 'juju',
@@ -48,15 +48,16 @@ describe('user tests', () => {
       .post('/api/v2/auth/signup')
       .send(user2)
       .end((err, res) => {
-        token.token = res.body.data.token;
+        token.token = res.body.data.dataToken;
         res.body.status.should.be.equal('success');
+        done();
       });
   });
-  it('an advertiser should be able to signup', () => {
+  it('an advertiser two should be able to signup', (done) => {
     const user3 = {
       firstName: 'ugizwe',
       lastName: 'divine',
-      email: 'ugizw@gmail.com',
+      email: 'vine@gmail.com',
       address: 'kamembe',
       password: '100',
       confirm: '100',
@@ -67,11 +68,12 @@ describe('user tests', () => {
       .post('/api/v2/auth/signup')
       .send(user3)
       .end((err, res) => {
-        token.token2 = res.body.data.token;
+        token.token2 = res.body.data.dataToken;
         res.body.status.should.be.equal('success');
+        done();
       });
   });
-  it('user should not be allowed to signup with a used email before', () => {
+  it('user should not be allowed to signup with a used email before', (done) => {
     const user1 = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -87,10 +89,11 @@ describe('user tests', () => {
       .send(user1)
       .end((err, res) => {
         res.status.should.be.equal(403);
-        res.body.error.should.be.equal('That email has been used');
+        res.body.error.should.be.equal('User exists');
+        done();
       });
   });
-  it('user should not signup when password and confirm are different', () => {
+  it('user should not signup when password and confirm are different', (done) => {
     const userP = {
       firstName: 'ugizwe',
       lastName: 'divine',
@@ -106,7 +109,49 @@ describe('user tests', () => {
       .send(userP)
       .end((err, res) => {
         res.status.should.be.equal(403);
-        res.body.error.should.be.equal('password must match confirm');
+        res.body.error.should.be.equal('Password must match Confirm');
+        done();
+      });
+  });
+
+  it('user should be allowed to login', (done) => {
+    const notExist = {
+      email: 'ugi@gmail.com',
+      password: '100',
+
+    };
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .send(notExist)
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        done();
+      });
+  });
+  it('user should not login with wrong password', (done) => {
+    const wrongPass = {
+      email: 'ugi@gmail.com',
+      password: '105',
+    };
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .send(wrongPass)
+      .end((err, res) => {
+        res.body.error.should.be.equal('Wrong password');
+        done();
+      });
+  });
+  it('user should not login unless he has an account', () => {
+    const notExist = {
+      email: 'eli1@gm.co',
+      password: '0788',
+
+    };
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .send(notExist)
+      .end((err, res) => {
+        res.body.error.should.be.equal('user does not exist');
       });
   });
 });
