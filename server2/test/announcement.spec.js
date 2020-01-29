@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../src/server';
@@ -24,11 +25,6 @@ const announcement2 = {
   startDate: '',
   endDate: '',
 };
-const announcement3={
-  text: 'you should pay schoolfees',
-  startDate: '2020-01-15T22:55:44.356Z',
-  endDate: '2020-06-10T22:55:44.356Z',
-}
 const wrongToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1a2lAZ21haWwuY29tIiwiaWQiOjE4NDEsImlzX2FkbWluIjp0cnVlLCJpYXQiOjE1Nzk4MTcxNjh9.1u-ZdPxLjeImFinFx2vJQC1dfiMsiVTAzRjvnFfV1P4';
 
 describe('announcement tests', () => {
@@ -128,7 +124,6 @@ describe('announcement tests', () => {
       .set('token', token.token)
       .send(announcement)
       .end((err, res) => {
-
         res.body.status.should.be.equal('success');
         res.status.should.be.equal(200);
       });
@@ -144,7 +139,7 @@ describe('announcement tests', () => {
         res.status.should.be.equal(200);
       });
   });
-  
+
   it('should allow an admin to update exist announcement status', () => {
     chai.request(app)
       .patch('/api/v1/announcement/5/sold')
@@ -207,7 +202,7 @@ describe('announcement tests', () => {
 
   it('should allow a user to view announcement details based on status', () => {
     chai.request(app)
-      .get(`/api/v1/announcement/status?status=active`)
+      .get('/api/v1/announcement/status?status=active')
       .set('token', token.token)
       .send()
       .end((err, res) => {
@@ -217,7 +212,7 @@ describe('announcement tests', () => {
   });
   it('should not allow a wrong user to view announcement details based on status', () => {
     chai.request(app)
-      .get(`/api/v1/announcement/status?status=active`)
+      .get('/api/v1/announcement/status?status=active')
       .set('token', wrongToken)
       .send()
       .end((err, res) => {
@@ -227,7 +222,7 @@ describe('announcement tests', () => {
   });
   it('should allow a user to view announcement details based on status', () => {
     chai.request(app)
-      .get(`/api/v1/announcement/status?status=pending`)
+      .get('/api/v1/announcement/status?status=pending')
       .set('token', token.token)
       .send()
       .end((err, res) => {
@@ -306,7 +301,7 @@ describe('announcement tests', () => {
         res.body.error.should.be.equal('Announcement does not exist');
       });
   });
-  
+
   it('should allow an admin to delete announcement', () => {
     chai.request(app)
       .delete('/api/v1/announcement/4')

@@ -14,7 +14,7 @@ const schemas = {
   }).options({ abortEarly: false }),
   authLogin: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required()
+    password: Joi.string().required(),
   }),
   announceSchema: Joi.object().keys({
     status: Joi.string().valid(['pending', 'accepted', 'declined', 'active', 'deactive']),

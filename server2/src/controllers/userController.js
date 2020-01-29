@@ -12,8 +12,8 @@ const userController = {
     }
     if (user === 'password do not match') {
       return res.status(403).json({
-        status:'error',
-        error:'password must match confirm'
+        status: 'error',
+        error: 'password must match confirm',
       });
     }
     return res.status(201).json({

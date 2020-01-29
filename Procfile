@@ -1,1 +1,1 @@
-web: npm start --prefix server2
+web: npm start

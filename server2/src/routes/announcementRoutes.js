@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import express from 'express';
 import controller from '../controllers/announcementController';
 import { schemas, validateInput } from '../helpers/validation';
