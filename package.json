@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "environment":"NODE_ENV=test",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register ./server2/test/*.spec.js --exit",
-    "dev": "npm run lint-correct && nodemon --exec babel-node ./server2/src/server.js",
+    "testV2": "SET NODE_ENV=test && nyc --reporter=html --reporter=text mocha --require @babel/register ./server2/testV2/*.spec.js --exit",
+    "dev": "set NODE_ENV=development && npm run lint-correct && nodemon --exec babel-node ./server2/src/server.js",
     "start": "babel-node ./server2/src/server.js",
     "build": "babel ./server2/src --out-dir dist",
     "serve": "node ./server2/dist/server.js",
-    "lint": "./node_modules/.bin/eslint ./server2/src",
+    "create": "node --require @babel/register ./server2/src/modelsV2/createTables",
+    "drop": "node --require @babel/register ./server2/src/modelsV2/dropTables",
+    "lint": "./node_modules/.bin/eslint ./src",
     "lint-correct": "eslint ./ --fix"
   },
   "keywords": [],
@@ -34,7 +38,8 @@
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "nyc": "^15.0.0"
+    "nyc": "^15.0.0",
+    "pg": "^7.17.1"
   },
   "devDependencies": {
     "mocha": "^7.0.0"
