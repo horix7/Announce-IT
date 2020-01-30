@@ -28,5 +28,14 @@ const updateAnnouncement = async (data, id) => {
   const result = await query.query1(queryText, value);
   return result;
 };
+const updateStatus = async (status, id) => {
+  const announcement = await searchAnnouncement(id);
+  const queryText = 'UPDATE Announcements SET status=$1 WHERE id=$2';
+  const value = [status || announcement.rows[0].status, id];
+  const result = await query.query1(queryText, value);
+  return result;
+};
 
-export { createAnnouncement, searchAnnouncement, updateAnnouncement };
+export {
+  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus,
+};

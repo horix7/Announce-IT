@@ -1,4 +1,7 @@
-import { createAnnouncement, searchAnnouncement, updateAnnouncement } from '../modelsV2/announcement';
+/* eslint-disable no-console */
+import {
+  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus 
+} from '../modelsV2/announcement';
 import { userExist, isAdmin } from '../modelsV2/user';
 
 const announcementCreation = async (req, res) => {
@@ -59,5 +62,34 @@ const announcementUpdate = async (req, res) => {
     data: announcement.rows[0],
   });
 };
-
-export { announcementCreation, announcementUpdate };
+const announcementStatusUpdate = async (req, res) => {
+  const userExists = await userExist(req.tokenEmail);
+  if (userExists.rowCount === 0) {
+    return res.status(403).json({
+      status: 'error',
+      error: 'User does not exist',
+    });
+  }
+  const admin = await isAdmin(req.tokenEmail);
+  if (admin.rowCount === 0) {
+    return res.status(403).json({
+      status: 'error',
+      error: 'Not admin',
+    });
+  }
+  const exist = await searchAnnouncement(req.params.id);
+  if (exist.rowCount === 0) {
+    return res.status(403).json({
+      status: 'error',
+      error: 'announcement does not exists',
+    });
+  }
+  const updatedAnnouncement = await updateStatus(req.body.status, req.params.id);
+  if (updatedAnnouncement.rowCount > 0) {
+    return res.status(200).json({
+      status: 'success',
+      data: updatedAnnouncement.rows[0],
+    });
+  }
+};
+export { announcementCreation, announcementUpdate, announcementStatusUpdate };
