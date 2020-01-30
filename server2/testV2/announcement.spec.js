@@ -300,4 +300,39 @@ describe('announcement tests', () => {
         done();
       });
   });
+  it('should not allow an advertiser to delete announcement ', (done) => {
+    chai.request(app)
+      .delete('/api/v2/announcement/3')
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('Not admin');
+        done();
+      });
+  });
+
+  it('should not allow a wrong user to delete announcement', (done) => {
+    chai.request(app)
+      .delete('/api/v2/announcement/3')
+      .set('token', wrongToken)
+      .send()
+      .end((err, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('User does not exist');
+        done();
+      });
+  });
+
+  it('should allow an admin to delete exist announcement', (done) => {
+    chai.request(app)
+      .delete('/api/v2/announcement/9')
+      .set('token', token.tokenAdmin)
+      .send()
+      .end((err, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('announcement does not exists');
+        done();
+      });
+  });
 });

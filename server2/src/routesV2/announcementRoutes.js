@@ -7,6 +7,7 @@ import {
   viewAnnouncements,
   viewMyAnnouncements,
   announcementSearchStatus,
+  announcementDelete,
 } from '../controllersV2/announcementController';
 import { schemas, validateInput } from '../helpers/validation';
 import authenticate from '../middleware/authentication';
@@ -20,5 +21,6 @@ router.get('/status', authenticate, announcementSearchStatus);
 router.get('/announcements', authenticate, viewAnnouncements);
 router.get('/myannouncements', authenticate, viewMyAnnouncements);
 router.get('/:id', authenticate, announcementSearch);
+router.delete('/:id', authenticate, announcementDelete);
 
 export default router;

@@ -52,7 +52,14 @@ const searchStatusBased = async (status) => {
   const result = await query.query1(queryText, value);
   return result;
 };
+const deleteAnnouncement = async (id) => {
+  const queryText = 'DELETE FROM Announcements WHERE id=$1';
+  const value = [id];
+  const result = await query(queryText, value);
+  return result;
+};
+
 export {
   createAnnouncement, searchAnnouncement, updateAnnouncement,
-  updateStatus, allAnnouncements, searchStatusBased, myAnnouncements,
+  updateStatus, allAnnouncements, deleteAnnouncement, searchStatusBased, myAnnouncements,
 };
