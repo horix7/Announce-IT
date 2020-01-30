@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "coveralls":"npm run test && nyc report --reporter=text-lcov | coveralls",
     "test": "NODE_ENV=test npm run drop && NODE_ENV=test npm run create && NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register ./server2/test/*.spec.js ./server2/testV2/*.spec.js --exit",
     "testV2": "npm run drop && npm run create && nyc --reporter=html --reporter=text mocha --require @babel/register ./server2/testV2/*.spec.js --exit",
     "dev": "npm run lint-correct && nodemon --exec babel-node ./server2/src/server.js",

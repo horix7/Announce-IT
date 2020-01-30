@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.com/Ugizwenayo-Divine/Announce-IT.svg?branch=develop)](https://travis-ci.com/Ugizwenayo-Divine/Announce-IT)  [![Maintainability](https://api.codeclimate.com/v1/badges/1d2d4898fb6334fa2cd4/maintainability)](https://codeclimate.com/github/Ugizwenayo-Divine/Announce-IT/maintainability)   [![Test Coverage](https://api.codeclimate.com/v1/badges/1d2d4898fb6334fa2cd4/test_coverage)](https://codeclimate.com/github/Ugizwenayo-Divine/Announce-IT/test_coverage)
-
+[![Build Status](https://travis-ci.com/Ugizwenayo-Divine/Announce-IT.svg?branch=develop)](https://travis-ci.com/Ugizwenayo-Divine/Announce-IT)  [![Maintainability](https://api.codeclimate.com/v1/badges/1d2d4898fb6334fa2cd4/maintainability)](https://codeclimate.com/github/Ugizwenayo-Divine/Announce-IT/maintainability)   [![Coverage Status](https://coveralls.io/repos/github/Ugizwenayo-Divine/Announce-IT/badge.svg?branch=develop)](https://coveralls.io/github/Ugizwenayo-Divine/Announce-IT?branch=develop)
 # AnnounceIT
 
 **This is just an application which will help in receiving and managing announcements for broadcasting agencies**
