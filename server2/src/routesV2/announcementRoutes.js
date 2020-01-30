@@ -5,6 +5,7 @@ import {
   announcementStatusUpdate,
   announcementSearch,
   viewAnnouncements,
+  viewMyAnnouncements,
 } from '../controllersV2/announcementController';
 import { schemas, validateInput } from '../helpers/validation';
 import authenticate from '../middleware/authentication';
@@ -15,6 +16,7 @@ router.post('/', authenticate, validateInput(schemas.announceSchema), announceme
 router.patch('/:id/sold', authenticate, validateInput(schemas.updateAnnounce), announcementStatusUpdate);
 router.patch('/:id', authenticate, validateInput(schemas.updateAnnounce), announcementUpdate);
 router.get('/announcements', authenticate, viewAnnouncements);
+router.get('/myannouncements', authenticate, viewMyAnnouncements);
 router.get('/:id', authenticate, announcementSearch);
 
 export default router;
