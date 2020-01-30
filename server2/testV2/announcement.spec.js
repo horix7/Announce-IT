@@ -237,4 +237,34 @@ describe('announcement tests', () => {
         done();
       });
   });
+  it('should allow an advertiser to view all his announcements', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/myannouncements')
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        done();
+      });
+  });
+  it('should allow an advertiser to know when He created no announcements', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/myannouncements')
+      .set('token', token.token2)
+      .send()
+      .end((err, res) => {
+        res.body.error.should.be.equal('you created no announcements');
+        done();
+      });
+  });
+  it('should not allow admin to know his announcements as he created none', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/myannouncements')
+      .set('token', token.tokenAdmin)
+      .send()
+      .end((err, res) => {
+        res.body.error.should.be.equal('Not advertiser');
+        done();
+      });
+  });
 });

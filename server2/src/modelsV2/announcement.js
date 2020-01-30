@@ -40,7 +40,12 @@ const allAnnouncements = async () => {
   const result = await query.query2(queryText);
   return result;
 };
-
+const myAnnouncements = async (userId) => {
+  const queryText = 'SELECT * FROM Announcements WHERE owner=$1';
+  const value = [userId];
+  const result = await query.query1(queryText, value);
+  return result;
+};
 export {
-  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus, allAnnouncements,
+  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus, allAnnouncements, myAnnouncements,
 };
