@@ -3,7 +3,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../src/server';
 import token from './auth.spec';
-import tokenHelper from '../src/helpers/token';
 
 chai.should();
 
@@ -180,6 +179,39 @@ describe('announcement tests', () => {
       .end((err, res) => {
         res.body.status.should.be.equal('error');
         res.body.error.should.be.equal('User does not exist');
+        done();
+      });
+  });
+  it('should allow a user to view announcement details', (done) => {
+    chai.request(app)
+      .get(`/api/v2/announcement/${id}`)
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        res.status.should.be.equal(200);
+        done();
+      });
+  });
+  it('should not allow a wrong user to view announcement details', (done) => {
+    chai.request(app)
+      .get(`/api/v2/announcement/${id}`)
+      .set('token', wrongToken)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
+        done();
+      });
+  });
+  it('should allow a user to view exist announcement details', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/11')
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
         done();
       });
   });
