@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 import bcrypt from 'bcrypt';
 import query from '../db/index';
 
@@ -9,22 +9,19 @@ const createUser = async (user) => {
   RETURNING *`;
   const userValue = [user.firstName, user.lastName || '-', user.email, user.address,
     user.phoneNumber || '-', bcrypt.hashSync(user.password, 10), user.isAdmin];
-  const data = await query.query1(queryText, userValue)
-    .catch((error) => console.error(error));
+  const data = await query.query1(queryText, userValue);
   return data;
 };
 const userExist = async (email) => {
   const queryText = 'SELECT * FROM Users WHERE email=$1';
   const value = [email];
-  const data = await query.query1(queryText, value)
-    .catch((error) => console.error(error));
+  const data = await query.query1(queryText, value);
   return data;
 };
 const isAdmin = async (email) => {
   const queryText = 'SELECT * FROM Users WHERE email=$1 and isAdmin=\'t\'';
   const value = [email];
-  const data = await query.query1(queryText, value)
-    .catch((error) => console.error(error));
+  const data = await query.query1(queryText, value);
   return data;
 };
 
