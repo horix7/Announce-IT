@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {
-  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus,
+  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus, allAnnouncements,
 } from '../modelsV2/announcement';
 import { userExist, isAdmin } from '../modelsV2/user';
 
@@ -105,6 +105,7 @@ const announcementSearch = async (req, res) => {
     return res.status(403).json({
       status: 'error',
       error: 'announcement does not exists',
+
     });
   }
   return res.status(200).json({
@@ -112,6 +113,26 @@ const announcementSearch = async (req, res) => {
     data: exist.rows[0],
   });
 };
+const viewAnnouncements = async (req, res) => {
+  const userExists = await userExist(req.tokenEmail);
+  if (userExists.rowCount === 0) {
+    return res.status(403).json({
+      status: 'error',
+      error: 'User does not exist',
+    });
+  }
+  const announcements = await allAnnouncements();
+  if (announcements.rowCount === 0) {
+    return res.status(403).json({
+      status: 'error',
+      error: 'you created no announcements',
+    });
+  }
+  return res.status(200).json({
+    status: 'success',
+    data: announcements.rows[0],
+  });
+};
 export {
-  announcementCreation, announcementUpdate, announcementStatusUpdate, announcementSearch,
+  announcementCreation, announcementUpdate, announcementStatusUpdate, viewAnnouncements, announcementSearch,
 };

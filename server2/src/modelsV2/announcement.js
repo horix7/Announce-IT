@@ -35,7 +35,12 @@ const updateStatus = async (status, id) => {
   const result = await query.query1(queryText, value);
   return result;
 };
+const allAnnouncements = async () => {
+  const queryText = 'SELECT * FROM Announcements';
+  const result = await query.query2(queryText);
+  return result;
+};
 
 export {
-  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus,
+  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus, allAnnouncements,
 };
