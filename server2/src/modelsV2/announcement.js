@@ -46,6 +46,13 @@ const myAnnouncements = async (userId) => {
   const result = await query.query1(queryText, value);
   return result;
 };
+const searchStatusBased = async (status) => {
+  const queryText = 'SELECT * FROM Announcements WHERE status=$1';
+  const value = [status];
+  const result = await query.query1(queryText, value);
+  return result;
+};
 export {
-  createAnnouncement, searchAnnouncement, updateAnnouncement, updateStatus, allAnnouncements, myAnnouncements,
+  createAnnouncement, searchAnnouncement, updateAnnouncement,
+  updateStatus, allAnnouncements, searchStatusBased, myAnnouncements,
 };
