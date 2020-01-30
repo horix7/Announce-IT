@@ -267,4 +267,37 @@ describe('announcement tests', () => {
         done();
       });
   });
+  it('should allow a user to view announcement details based on status', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/status?status=accepted')
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        res.status.should.be.equal(200);
+        done();
+      });
+  });
+  it('should not allow a wrong user to view announcement details based on status', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/status?status=active')
+      .set('token', wrongToken)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
+        done();
+      });
+  });
+  it('should allow a user to view announcement details based on status', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/status?status=pending')
+      .set('token', token.token)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
+        done();
+      });
+  });
 });
