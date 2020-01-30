@@ -19,10 +19,11 @@ const signup = async (req, res) => {
   }
   const user = await createUser(req.body);
   const token = tokenHelper
-  .encodeToken({ 
-    email: user.rows[0].email, 
-    isAdmin: user.rows[0].isAdmin, 
-    id: user.rows[0].id });
+    .encodeToken({
+      email: user.rows[0].email,
+      isAdmin: user.rows[0].isAdmin,
+      id: user.rows[0].id,
+    });
   return res.status(201).json({
     status: 'success',
     data: {
@@ -41,10 +42,13 @@ const login = async (req, res) => {
   }
   if (bcrypt.compareSync(req.body.password, userLogin.rows[0].password)) {
     const token = tokenHelper
-    .encodeToken(
-      { email: userLogin.rows[0].email, 
-        isAdmin: userLogin.rows[0].isAdmin, 
-        id: userLogin.rows[0].id });
+      .encodeToken(
+        {
+          email: userLogin.rows[0].email,
+          isAdmin: userLogin.rows[0].isAdmin,
+          id: userLogin.rows[0].id,
+        },
+      );
     return res.status(200).json({
       status: 'success',
       data: {
