@@ -139,4 +139,48 @@ describe('announcement tests', () => {
         done();
       });
   });
+  it('should allow an admin to update announcement status', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/announcement/${id}/sold`)
+      .set('token', token.tokenAdmin)
+      .send(announcement)
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        res.status.should.be.equal(200);
+        done();
+      });
+  });
+
+  it('should allow an admin to update exist announcement status', (done) => {
+    chai.request(app)
+      .patch('/api/v2/announcement/5/sold')
+      .set('token', token.tokenAdmin)
+      .send(announcement)
+      .end((err, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('announcement does not exists');
+        done();
+      });
+  });
+  it('should not allow an advertiser to update announcement status', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/announcement/${id}/sold`)
+      .set('token', token.token)
+      .send(announcement)
+      .end((err, res) => {
+        res.body.error.should.be.equal('Not admin');
+        done();
+      });
+  });
+  it('should not allow a wrong user to update announcement status', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/announcement/${id}/sold`)
+      .set('token', wrongToken)
+      .send(announcement)
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.body.error.should.be.equal('User does not exist');
+        done();
+      });
+  });
 });
