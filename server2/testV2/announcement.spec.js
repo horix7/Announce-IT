@@ -186,6 +186,16 @@ describe('announcement tests', () => {
     chai.request(app)
       .get(`/api/v2/announcement/${id}`)
       .set('token', token.token)
+      .end((err, res) => {
+        res.body.status.should.be.equal('success');
+        res.status.should.be.equal(200);
+        done();
+      });
+  });
+  it('should allow a user to view all announcements', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/announcements')
+      .set('token', token.token)
       .send()
       .end((err, res) => {
         res.body.status.should.be.equal('success');
@@ -196,6 +206,18 @@ describe('announcement tests', () => {
   it('should not allow a wrong user to view announcement details', (done) => {
     chai.request(app)
       .get(`/api/v2/announcement/${id}`)
+      .set('token', wrongToken)
+      .send()
+      .end((err, res) => {
+        res.body.status.should.be.equal('error');
+        res.status.should.be.equal(403);
+        done();
+      });
+  });
+
+  it('should not allow a wrong user to view all announcements', (done) => {
+    chai.request(app)
+      .get('/api/v2/announcement/announcements')
       .set('token', wrongToken)
       .send()
       .end((err, res) => {
